@@ -41,8 +41,19 @@ class Hall(Star_Cinema) :
                   print("INVALID SHOW ID")                
 
       def book_seat_function(self,id,seat_name):
-             che=False
              for key in self._seats:
+                  if key ==id:
+                        
+                        seat_list=self._seats[id]
+                        for i in seat_list:
+                              if i[0] == seat_name:
+                                          i[1]=True
+                                          
+                
+
+      def check_seats(self,id,seat_name): 
+            che=False
+            for key in self._seats:
                   if key ==id:
                         
                         seat_list=self._seats[id]
@@ -52,11 +63,10 @@ class Hall(Star_Cinema) :
                                     if i[1]==True:
                                           return -1
                                     else:
-                                          i[1]=True
+                                          
                                           return 1
-             if che ==False:
-                        return 0     
-             
+            if che ==False:
+                  return 0   
 
 
 
@@ -81,21 +91,28 @@ class Hall(Star_Cinema) :
                   
                   if (num.isnumeric()):
                         num=int(num)
-                        i =0
-                        while(i<num):
-                              seat_name=input("ENTER SEAT NO : ")
-                              check =self.book_seat_function(id,seat_name)
+                        succ=True
+                        seat_name=input("ENTER SEAT NO : ")
+                        seat_name=seat_name.split(" ")
+                        for seat in seat_name:
+                              check =self.check_seats(id,seat)
                               if(check==-1):
-                                     print("THIS SEAT IS ALREADY BOOKES")
-                                     continue
+                                     print(f"THIS {seat} SEAT IS ALREADY BOOKES")
+                                     succ=False
                               elif (check ==0):
-                                    print("INVALID SEAT .TRY AGAIN")
-                                    continue
-                              else:
-                                     i+=1
+                                    print(f"INVALID SEAT {seat} .")
+                                    succ=False
+                                  
+                                     
 
-                        print("YOUR SEATS HAS BEEN BOOKED SUCCESSFULLY. ")
-                        print(f"THANK YOU {name} ")
+                        if (succ):
+                              for seat in seat_name:
+                                    self.book_seat_function(id,seat)
+
+                              print("YOUR SEATS HAS BEEN BOOKED SUCCESSFULLY. ")
+                              print(f"THANK YOU {name} ")
+                        else:
+                              print("TRY AGAIN")
                   else:
                         print("INVALID NUMBER")
             else:
