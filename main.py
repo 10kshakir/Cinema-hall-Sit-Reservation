@@ -1,8 +1,8 @@
 
 class Star_Cinema:
       _hall_list =[]
-      def entry_hall(self,rows,cols,hall_no):
-            Star_Cinema._hall_list.append({f"rows {rows},cols {cols} ,hall_no {hall_no} "})
+      def entry_hall(self,hall):
+            Star_Cinema._hall_list.append(hall)
 
 class Hall(Star_Cinema) :
       def __init__(self,rows,cols,hall_no) -> None:
@@ -11,7 +11,7 @@ class Hall(Star_Cinema) :
             self.__rows=rows
             self.__cols=cols
             self.hall_no=hall_no
-            self.entry_hall(rows,cols,hall_no)
+            self.entry_hall(self)
 
       def view_available_seats(self,id):
             check=False
